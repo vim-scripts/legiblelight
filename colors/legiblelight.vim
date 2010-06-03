@@ -1,7 +1,7 @@
 "==============================================================================
 "Filename:              legiblelight.vim
-"Last Modified:         2010-05-26
-"Version:               1.0.1
+"Last Modified:         2010-06-03
+"Version:               1.1.2
 "Maintainer:            Tony Dunsworth <tony.dunsworth AT gmail DOT com>
 "Copyright:             2010 Tony Dunsworth
 "                       This script is free software; you can do almost
@@ -35,9 +35,9 @@ let g:colors_name = "legiblelight"
 " --- GUI section
 
 hi Normal           guifg=#0000cd   guibg=#ffffff   gui=none    " mediumblue on white
-hi Cursor           guifg=#ffffff   guibg=#0000cd   gui=none    " white on mediumblue
-hi CursorColumn     guifg=#4682b4   guibg=bg        gui=none    " steelblue on background
-hi CursorLine       guifg=#4682b4   guibg=bg        gui=none    " steelblue on background
+hi Cursor           guifg=#696969   guibg=fg        gui=none    " dimgray on mediumblue
+hi CursorColumn     guifg=fg        guibg=#dcdcdc   gui=none    " mediumblue on gainsboro
+hi CursorLine       guifg=fg        guibg=#dcdcdc   gui=none    " mediumblue on gainsboro
 hi CursorIM         guifg=#00008b   guibg=bg        gui=none    " darkblue on background
 hi DiffAdd          guifg=#4b0082   guibg=bg        gui=none    " indigo on background
 hi DiffChange       guifg=#800080   guibg=bg        gui=none    " purple on background
@@ -140,4 +140,223 @@ hi diffLine         guifg=#7b68ee   guibg=bg        gui=italic  " mediumslateblu
 hi link diffSubname diffLine
 hi link diffComment Comment
 
+" --- CTerm8 (Light)
+if &t_Co == 8
+    if &background == "light"
+        hi Normal       ctermfg=DarkBlue        ctermbg=White
+        hi Cursor       ctermfg=White           ctermbg=DarkBlue
+        if version>=700
+            hi CursorColumn     ctermfg=LightBlue   ctermbg=White
+            hi CursorLine       ctermfg=LightBlue   cterm=Underline
+        endif
+        hi CursorIM     ctermfg=DarkBlue
+        hi DiffAdd      ctermfg=DarkMagenta
+        hi DiffChange   ctermfg=DarkMagenta     cterm=Underline
+        hi DiffDelete   ctermfg=DarkRed         cterm=Underline
+        hi DiffText     ctermfg=DarkGray
+        hi ErrorMsg     ctermfg=White           ctermbg=DarkRed
+        hi FoldColumn   ctermfg=DarkCyan
+        hi Folded       ctermfg=DarkCyan        cterm=Underline
+        hi IncSearch    ctermfg=DarkBlue        ctermbg=Yellow
+        hi LineNr       ctermfg=DarkBlue        ctermbg=Gray
+        hi MatchParen   ctermfg=Brown           
+        hi ModeMsg      ctermfg=LightRed
+        hi MoreMsg      ctermfg=LightRed        cterm=Underline
+        hi NonText      ctermfg=LightBlue
+        if version>=700
+            hi Pmenu            ctermfg=LightBlue       ctermbg=Yellow
+            hi PmenuSbar        ctermfg=Yellow          ctermbg=LightBlue
+            hi PmenuSel         ctermfg=LightBlue       cterm=Italic
+            hi PmenuThumb       ctermfg=LightBlue       cterm=Underline
+        endif
+        hi Question     ctermfg=White           ctermbg=LightRed
+        hi SignColumn   ctermfg=DarkBlue
+        hi Search       ctermfg=DarkBlue        ctermbg=Yellow
+        hi SpellBad     ctermfg=LightRed        cterm=Underline
+        hi SpellCap     ctermfg=LightRed        
+        hi SpellLocal   ctermfg=LightRed
+        hi SpellRare    ctermfg=LightRed
+        hi TabLine      ctermfg=LightCyan
+        hi TablLineFill ctermfg=LightCyan
+        hi TabLineSel   ctermfg=LightCyan
+        hi VertSplit    ctermfg=DarkCyan
+        hi Visual       ctermfg=DarkBlue
+        hi WarningMsg   ctermfg=DarkRed
+        hi WildMenu     ctermfg=Black
+        hi Comment      ctermfg=DarkGreen       cterm=Underline
+        hi Constant     ctermfg=DarkGreen
+        hi Identifier   ctermfg=Brown
+        hi Statement    ctermfg=DarkBlue
+        hi PreProc      ctermfg=DarkMagenta
+        hi Type         ctermfg=LightBlue
+        hi Special      ctermfg=LightGreen
+        hi Error        ctermfg=DarkRed
+        hi Todo         ctermfg=Brown           cterm=Underline
+        hi Exception    ctermfg=LightRed        cterm=Underline
+        hi Underlined   cterm=Underline
+    endif
 
+" --- CTerm256 (light)
+elseif &t_Co == 256
+    
+    if v:version < 700
+        command! -nargs=+ CSAHi exe "hi" substitute(substitute(<q-args>, "undercurl", "underline", "g"), "guisp\\S\\+", "", "g")
+    else
+        commend! -nargs=+ CSAHi exe "hi" <q-args>
+    endif
+    if has("gui_running") || (&t_Co == 256 && (&term ==# "xterm" || &term =~# "^screen") && exists("g:CSApprox_konsole") && g:CSApprox_konsol) || &term =~? "^konsole"
+        CSAHi Normal        ctermfg=20  ctermbg=231
+        CSAHi Cursor        ctermfg=249 ctermbg=18
+        CSAHi CursorColumn  ctermfg=25  ctermbg=252
+        CSAHi CursorLine    ctermfg=25  ctermbg=252
+        CSAHi CursorIM      ctermfg=18  ctermbg=231
+        CSAHi DiffAdd       ctermfg=53  ctermbg=231
+        CSAHi DiffChange    ctermfg=54  ctermbg=231
+        CSAHi DiffDelete    ctermfg=90  ctermbg=231
+        CSAHi DiffText      ctermfg=57  ctermbg=231
+        CSAHi ErrorMsg      ctermfg=160 ctermbg=231 term=bold
+        CSAHi FoldColumn    ctermfg=37  ctermbg=231 term=bold
+        CSAHi Folded        ctermfg=38  ctermbg=231 term=bold
+        CSAHi IncSearch     ctermfg=19  ctermbg=231
+        CSAHi LineNr        ctermfg=20  ctermbg=251
+        CSAHi MatchParen    ctermfg=231 ctermbg=20
+        CSAHi ModeMsg       ctermfg=166 ctermbg=231 term=bold
+        CSAHi MoreMsg       ctermfg=202 ctermbg=231 term=bold
+        CSAHi NonText       ctermfg=39  ctermbg=231
+        CSAHi Pmenu         ctermfg=32  ctermbg=231
+        CSAHi PmenuSbar     ctermfg=231 ctermbg=32
+        CSAHi PmenuSel      ctermfg=68  ctermbg=231
+        CSAHi PmenuThumb    ctermfg=110 ctermbg=231 term=reverse
+        CSAHi Question      ctermfg=231 ctermbg=21  term=bold
+        CSAHi SignColumn    ctermfg=19  ctermbg=231 term=bold
+        CSAHi Search        ctermfg=17  ctermbg=231
+        CSAHi SpecialKey    ctermfg=237 ctermbg=231
+        CSAHi SpellBad      ctermfg=196 ctermbg=231 term=underline
+        CSAHi SpellCap      ctermfg=52  ctermbg=231 term=underline
+        CSAHi SpellLocal    ctermfg=124 ctermbg=231 term=underline
+        CSAHi SpellRare     ctermfg=160 ctermbg=231 term=underline
+        CSAHi StatusLine    ctermfg=64  ctermbg=231
+        CSAHi StatusLineNC  ctermfg=58  ctermbg=231
+        CSAHi TabLine       ctermfg=23  ctermbg=231 term=underline
+        CSAHi TabLineFill   ctermfg=20  ctermbg=231 term=reverse
+        CSAHi TabLineSel    ctermfg=20  ctermbg=231 term=underline
+        CSAHi VertSplit     ctermfg=24  ctermbg=231
+        CSAHi Visual        ctermfg=21  ctermbg=231
+        CSAHi WarningMsg    ctermfg=196 ctermbg=231
+        CSAHi WildMenu      ctermfg=16  ctermbg=231
+        CSAHi Comment       ctermfg=100 ctermbg=231 term=italic
+        CSAHi Constant      ctermfg=34  ctermbg=231
+        CSAHi Indentifier   ctermfg=137 ctermbg=231
+        CSAHi Statement     ctermfg=19  ctermbg=231
+        CSAHi PreProc       ctermfg=54  ctermbg=231
+        CSAHi Type          ctermfg=26  ctermbg=231
+        CSAHi Special       ctermfg=58  ctermbg=231
+        CSAHi Error         ctermfg=160 ctermbg=231 term=bold
+        CSAHi Todo          ctermfg=95  ctermbg=231 term=bold
+        CSAHi Exception     ctermfg=124 ctermbg=231 term=bold
+        CSAHi Underlined                            term=underline
+    elseif has("gui_running") || (&t_Co == 256 && (&term ==# "xterm" || &term =~# "^screen") && exists("g:CSApprox_eterm") && g:CSApprox_eterrm) || &term=~> "^eterm"
+        CSAHi Normal        ctermfg=20  ctermbg=231
+        CSAHi Cursor        ctermfg=249 ctermbg=18
+        CSAHi CursorColumn  ctermfg=25  ctermbg=252
+        CSAHi CursorLine    ctermfg=25  ctermbg=252
+        CSAHi CursorIM      ctermfg=18  ctermbg=231
+        CSAHi DiffAdd       ctermfg=53  ctermbg=231
+        CSAHi DiffChange    ctermfg=54  ctermbg=231
+        CSAHi DiffDelete    ctermfg=90  ctermbg=231
+        CSAHi DiffText      ctermfg=57  ctermbg=231
+        CSAHi ErrorMsg      ctermfg=160 ctermbg=231 term=bold
+        CSAHi FoldColumn    ctermfg=37  ctermbg=231 term=bold
+        CSAHi Folded        ctermfg=38  ctermbg=231 term=bold
+        CSAHi IncSearch     ctermfg=19  ctermbg=231
+        CSAHi LineNr        ctermfg=20  ctermbg=251
+        CSAHi MatchParen    ctermfg=231 ctermbg=20
+        CSAHi ModeMsg       ctermfg=166 ctermbg=231 term=bold
+        CSAHi MoreMsg       ctermfg=202 ctermbg=231 term=bold
+        CSAHi NonText       ctermfg=39  ctermbg=231
+        CSAHi Pmenu         ctermfg=32  ctermbg=231
+        CSAHi PmenuSbar     ctermfg=231 ctermbg=32
+        CSAHi PmenuSel      ctermfg=68  ctermbg=231
+        CSAHi PmenuThumb    ctermfg=110 ctermbg=231 term=reverse
+        CSAHi Question      ctermfg=231 ctermbg=21  term=bold
+        CSAHi SignColumn    ctermfg=19  ctermbg=231 term=bold
+        CSAHi Search        ctermfg=17  ctermbg=231
+        CSAHi SpecialKey    ctermfg=237 ctermbg=231
+        CSAHi SpellBad      ctermfg=196 ctermbg=231 term=underline
+        CSAHi SpellCap      ctermfg=52  ctermbg=231 term=underline
+        CSAHi SpellLocal    ctermfg=124 ctermbg=231 term=underline
+        CSAHi SpellRare     ctermfg=160 ctermbg=231 term=underline
+        CSAHi StatusLine    ctermfg=64  ctermbg=231
+        CSAHi StatusLineNC  ctermfg=58  ctermbg=231
+        CSAHi TabLine       ctermfg=23  ctermbg=231 term=underline
+        CSAHi TabLineFill   ctermfg=20  ctermbg=231 term=reverse
+        CSAHi TabLineSel    ctermfg=20  ctermbg=231 term=underline
+        CSAHi VertSplit     ctermfg=24  ctermbg=231
+        CSAHi Visual        ctermfg=21  ctermbg=231
+        CSAHi WarningMsg    ctermfg=196 ctermbg=231
+        CSAHi WildMenu      ctermfg=16  ctermbg=231
+        CSAHi Comment       ctermfg=100 ctermbg=231 term=italic
+        CSAHi Constant      ctermfg=34  ctermbg=231
+        CSAHi Indentifier   ctermfg=137 ctermbg=231
+        CSAHi Statement     ctermfg=19  ctermbg=231
+        CSAHi PreProc       ctermfg=54  ctermbg=231
+        CSAHi Type          ctermfg=26  ctermbg=231
+        CSAHi Special       ctermfg=58  ctermbg=231
+        CSAHi Error         ctermfg=160 ctermbg=231 term=bold
+        CSAHi Todo          ctermfg=95  ctermbg=231 term=bold
+        CSAHi Exception     ctermfg=124 ctermbg=231 term=bold
+        CSAHi Underlined                            term=underline
+    elseif has("gui_running") || &t_Co == 256
+        CSAHi Normal        ctermfg=20  ctermbg=231
+        CSAHi Cursor        ctermfg=249 ctermbg=18
+        CSAHi CursorColumn  ctermfg=25  ctermbg=252
+        CSAHi CursorLine    ctermfg=25  ctermbg=252
+        CSAHi CursorIM      ctermfg=18  ctermbg=231
+        CSAHi DiffAdd       ctermfg=53  ctermbg=231
+        CSAHi DiffChange    ctermfg=54  ctermbg=231
+        CSAHi DiffDelete    ctermfg=90  ctermbg=231
+        CSAHi DiffText      ctermfg=57  ctermbg=231
+        CSAHi ErrorMsg      ctermfg=160 ctermbg=231 term=bold
+        CSAHi FoldColumn    ctermfg=37  ctermbg=231 term=bold
+        CSAHi Folded        ctermfg=38  ctermbg=231 term=bold
+        CSAHi IncSearch     ctermfg=19  ctermbg=231
+        CSAHi LineNr        ctermfg=20  ctermbg=251
+        CSAHi MatchParen    ctermfg=231 ctermbg=20
+        CSAHi ModeMsg       ctermfg=166 ctermbg=231 term=bold
+        CSAHi MoreMsg       ctermfg=202 ctermbg=231 term=bold
+        CSAHi NonText       ctermfg=39  ctermbg=231
+        CSAHi Pmenu         ctermfg=32  ctermbg=231
+        CSAHi PmenuSbar     ctermfg=231 ctermbg=32
+        CSAHi PmenuSel      ctermfg=68  ctermbg=231
+        CSAHi PmenuThumb    ctermfg=110 ctermbg=231 term=reverse
+        CSAHi Question      ctermfg=231 ctermbg=21  term=bold
+        CSAHi SignColumn    ctermfg=19  ctermbg=231 term=bold
+        CSAHi Search        ctermfg=17  ctermbg=231
+        CSAHi SpecialKey    ctermfg=237 ctermbg=231
+        CSAHi SpellBad      ctermfg=196 ctermbg=231 term=underline
+        CSAHi SpellCap      ctermfg=52  ctermbg=231 term=underline
+        CSAHi SpellLocal    ctermfg=124 ctermbg=231 term=underline
+        CSAHi SpellRare     ctermfg=160 ctermbg=231 term=underline
+        CSAHi StatusLine    ctermfg=64  ctermbg=231
+        CSAHi StatusLineNC  ctermfg=58  ctermbg=231
+        CSAHi TabLine       ctermfg=23  ctermbg=231 term=underline
+        CSAHi TabLineFill   ctermfg=20  ctermbg=231 term=reverse
+        CSAHi TabLineSel    ctermfg=20  ctermbg=231 term=underline
+        CSAHi VertSplit     ctermfg=24  ctermbg=231
+        CSAHi Visual        ctermfg=21  ctermbg=231
+        CSAHi WarningMsg    ctermfg=196 ctermbg=231
+        CSAHi WildMenu      ctermfg=16  ctermbg=231
+        CSAHi Comment       ctermfg=100 ctermbg=231 term=italic
+        CSAHi Constant      ctermfg=34  ctermbg=231
+        CSAHi Indentifier   ctermfg=137 ctermbg=231
+        CSAHi Statement     ctermfg=19  ctermbg=231
+        CSAHi PreProc       ctermfg=54  ctermbg=231
+        CSAHi Type          ctermfg=26  ctermbg=231
+        CSAHi Special       ctermfg=58  ctermbg=231
+        CSAHi Error         ctermfg=160 ctermbg=231 term=bold
+        CSAHi Todo          ctermfg=95  ctermbg=231 term=bold
+        CSAHi Exception     ctermfg=124 ctermbg=231 term=bold
+        CSAHi Underlined                            term=underline
+    endif
+    delcommand CSAHi
+endif
